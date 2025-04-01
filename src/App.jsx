@@ -1,17 +1,20 @@
 import './App.css'
 import Header from './Components/Header'
 import { Route, Routes } from 'react-router'
+import React from 'react'
 
 
 function App() {
 
   return (
     <div>
-      <Header/>
+      <Header />
       <p>Hello World</p>
-<Routes>
-
-</Routes>
+      {<Routes>
+        {/* <Route path="/" element ={<Home />}/> */}
+        <Route path="/articles" element={<AllArticles />} />
+        {/* <Route/> */}
+      </Routes>}
     </div>
   )
 }
