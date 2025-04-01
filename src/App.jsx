@@ -9,11 +9,7 @@ function App() {
     <div>
       <Header/>
       <p>Hello World</p>
-      {/* <Routes>
-        <Route/>
-        <Route/>
-        <Route/>
-      </Routes> */}
+
     </div>
   )
 }
