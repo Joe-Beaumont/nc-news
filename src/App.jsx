@@ -2,6 +2,7 @@ import './App.css'
 import Header from './Components/Header'
 import { Route, Routes } from 'react-router'
 import React from 'react'
+import { AllArticles } from './Components/Articles'
 
 
 function App() {
