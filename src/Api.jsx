@@ -17,7 +17,16 @@ import { useEffect, useState } from "react";
 // }
 
 
-export function getAllArticles () {
+export function getArticles (article_id) {
+    if(article_id){
+        return axios.get(`https://joe-beaumont-nc-news.onrender.com/api/articles/${article_id}`)
+    .then((response) => {
+        return response.data.article
+    })
+    .catch((error) => {
+        console.log(error)
+    })
+    } else {
     return axios.get("https://joe-beaumont-nc-news.onrender.com/api/articles")
     .then((response) => {
         return response.data.articles
@@ -25,4 +34,5 @@ export function getAllArticles () {
     .catch((error) => {
         console.log(error)
     })
+}
 }
