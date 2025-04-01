@@ -1,6 +1,5 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { getArticles } from "../Api";
-import { useEffect } from "react";
 import React from 'react'
 import { ArticleCard, SingleArticleCard } from "../Cards/ArticleCard";
 import { useParams } from "react-router"
