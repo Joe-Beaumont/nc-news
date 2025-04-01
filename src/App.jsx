@@ -3,6 +3,7 @@ import Header from './Components/Header'
 import { Route, Routes } from 'react-router'
 import React from 'react'
 import { AllArticles, ArticleById } from './Components/Articles'
+import { CommentsByArticleId } from './Components/Comments'
 
 
 function App() {

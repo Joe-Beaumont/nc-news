@@ -20,6 +20,7 @@ export function ArticleCard({ article }) {
 
 
 export function SingleArticleCard({ article }) {
+    const navg = useNavigate()
     return (
         <div className="Card">
             <br/>
@@ -32,6 +33,7 @@ export function SingleArticleCard({ article }) {
             <p>Votes: {article.votes}</p>
             <button>Vote</button>
             <br/>
+            <p onClick={() => {navg(`/articles/${article.article_id}/comments`)}}>View Comments</p>
         </div>
     )
 }
