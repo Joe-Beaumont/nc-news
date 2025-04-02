@@ -48,8 +48,9 @@ export function getCommentsById(article_id) {
 }
 
 
-export function incrementVotesOnArticle(voteIncrement) {
-    return axios.patch(`https://joe-beaumont-nc-news.onrender.com/api/articles/${article_id}`, voteIncrement)
+export function incrementVotesOnArticle(inc_votes, article_id) {
+    return axios.patch(`https://joe-beaumont-nc-news.onrender.com/api/articles/${article_id}`, inc_votes)
+
     .then((response) => {
         console.log(response)
     })

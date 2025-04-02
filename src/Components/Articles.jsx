@@ -37,8 +37,8 @@ export function ArticleById() {
 
     useEffect(() => {
         getArticles(article_id)
-            .then((allArticles) => {
-                setArticles(allArticles);
+            .then((article) => {
+                setArticles(article);
             })
     }, [])
 
