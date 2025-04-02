@@ -34,4 +34,5 @@ export function Votes({ article_id }) {
             <button onClick={() => handleVote(article_id, -1)}>Downvote</button>
         </div>
     )
+
 }
