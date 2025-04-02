@@ -1,18 +1,22 @@
-import React from "react"
+import React, { useState } from "react"
 import { useNavigate } from 'react-router'
+import { Votes } from "../Votes/Votes"
+
 
 export function ArticleCard({ article }) {
     const navg = useNavigate()
+    const { article_img_url, article_id, title, topic, author, created_at} = article
+
+
     return (
         <div className="Card">
             <br/>
-            <img src= {article.article_img_url} alt={article.title}></img>
-            <h2 onClick={() => {navg(`/articles/${article.article_id}`)}}>{article.title}</h2>
-            <p>Topic: {article.topic}</p>
-            <p>Author: {article.author}</p>
-            <p>Created At: {article.created_at}</p>
-            <p>Votes: {article.votes}</p>
-            <button>Vote</button>
+            <img src= {article_img_url} alt={title}></img>
+            <h2 onClick={() => {navg(`/articles/${article_id}`)}}>{title}</h2>
+            <p>Topic: {topic}</p>
+            <p>Author: {author}</p>
+            <p>Created At: {created_at}</p>
+            <Votes article_id={article_id}/>
             <br/>
         </div>
     )
@@ -21,19 +25,18 @@ export function ArticleCard({ article }) {
 
 export function SingleArticleCard({ article }) {
     const navg = useNavigate()
+    const { article_img_url, article_id, body, title, topic, author, created_at} = article
+
     return (
         <div className="Card">
             <br/>
-            <img src= {article.article_img_url} alt={article.title}></img>
-            <h2>{article.title}</h2>
-            <p>Topic: {article.topic}</p>
-            <p>Author: {article.author}</p>
-            <p>{article.body}</p>
-            <p>Created At: {article.created_at}</p>
-            <p>Votes: {article.votes}</p>
-            <button>Vote</button>
-            <br/>
-            <p onClick={() => {navg(`/articles/${article.article_id}/comments`)}}>View Comments</p>
+            <img src= {article_img_url} alt={title}></img>
+            <h2>{title}</h2>
+            <p>Topic: {topic}</p>
+            <p>Author: {author}</p>
+            <p>{body}</p>
+            <p>Created At: {created_at}</p>
+            <Votes article_id={article_id}/>
         </div>
     )
 }
