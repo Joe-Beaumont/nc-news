@@ -1,8 +1,10 @@
-import React from "react"
+import React, { useState } from "react"
 import { useNavigate } from 'react-router'
 
 export function ArticleCard({ article }) {
     const navg = useNavigate()
+
+
     return (
         <div className="Card">
             <br/>
@@ -12,7 +14,7 @@ export function ArticleCard({ article }) {
             <p>Author: {article.author}</p>
             <p>Created At: {article.created_at}</p>
             <p>Votes: {article.votes}</p>
-            <button>Vote</button>
+            <button>Upvote</button><button>Downvote</button>
             <br/>
         </div>
     )
@@ -31,7 +33,7 @@ export function SingleArticleCard({ article }) {
             <p>{article.body}</p>
             <p>Created At: {article.created_at}</p>
             <p>Votes: {article.votes}</p>
-            <button>Vote</button>
+            <button>Upvote</button><button>Downvote</button>
             <br/>
             <p onClick={() => {navg(`/articles/${article.article_id}/comments`)}}>View Comments</p>
         </div>

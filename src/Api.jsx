@@ -46,3 +46,14 @@ export function getCommentsById(article_id) {
             console.log(error)
         })
 }
+
+
+export function incrementVotesOnArticle(voteIncrement) {
+    return axios.patch(`https://joe-beaumont-nc-news.onrender.com/api/articles/${article_id}`, voteIncrement)
+    .then((response) => {
+        console.log(response)
+    })
+    .catch((error) => {
+        console.log(error)
+    })
+}
