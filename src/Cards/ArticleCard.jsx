@@ -1,6 +1,7 @@
 import React from "react"
 import { Votes } from "../Votes/Votes"
 import { Link } from 'react-router'
+import { PostComment } from "../Components/Comments"
 
 
 export function ArticleCard({ article }) {
@@ -29,7 +30,7 @@ export function SingleArticleCard({ article }) {
     return (
         <div className="Card">
             <br/>
-            <img src= {article_img_url} alt={title}></img>
+            <img src= {article_img_url} alt={title} className="img"></img>
             <h2>{title}</h2>
             <p>Topic: {topic}</p>
             <p>Author: {author}</p>
@@ -37,6 +38,7 @@ export function SingleArticleCard({ article }) {
             <p>Created At: {created_at}</p>
             <Votes article_id={article_id}/>
             <Link to={`/articles/${article_id}/comments`}>View Comments</Link>
+            <PostComment />
         </div>
     )
 }

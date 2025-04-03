@@ -14,7 +14,7 @@
 
 .Card {
   flex: 1;
-  min-width: 250px; /* Each card takes at least 250px width */
+  min-width: 250px;
   max-width: 1080px;
   background-color: #f4f4f4;
   padding: 20px;
@@ -39,7 +39,7 @@
 }
 
 .img {
-  max-width: 1080px;
+  max-width: 600px;
 }
 
 
