@@ -54,3 +54,16 @@ export function incrementVotesOnArticle(inc_votes, article_id) {
         throw error
     })
 }
+
+export function postNewComment(request){
+    const article_id = request.params
+    console.log(request.body)
+    return axios.post(`https://joe-beaumont-nc-news.onrender.com/api/articles/${article_id}/comments`, request.body)
+    .then((response) => {
+        console.log(response)
+    })
+    .catch((error) => {
+        console.log(error)
+        throw error
+    })
+}
