@@ -1,21 +1,22 @@
-import React, { useState } from "react"
-import { useNavigate } from 'react-router'
+import React from "react"
 import { Votes } from "../Votes/Votes"
+import { Link } from 'react-router'
 
 
 export function ArticleCard({ article }) {
-    const navg = useNavigate()
+
     const { article_img_url, article_id, title, topic, author, created_at} = article
 
     return (
         <div className="Card">
             <br/>
-            <img src= {article_img_url} alt={title}></img>
-            <h2 onClick={() => {navg(`/articles/${article_id}`)}}>{title}</h2>
+            <img src= {article_img_url} alt={title} className="img"></img>
+            <h2>{title}</h2>
             <p>Topic: {topic}</p>
             <p>Author: {author}</p>
             <p>Created At: {created_at}</p>
             <Votes article_id={article_id}/>
+            <Link to={`/articles/${article_id}`}>Read Article in Full</Link>
             <br/>
         </div>
     )
@@ -23,7 +24,6 @@ export function ArticleCard({ article }) {
 
 
 export function SingleArticleCard({ article }) {
-    const navg = useNavigate()
     const { article_img_url, article_id, body, title, topic, author, created_at} = article
 
     return (
@@ -36,7 +36,7 @@ export function SingleArticleCard({ article }) {
             <p>{body}</p>
             <p>Created At: {created_at}</p>
             <Votes article_id={article_id}/>
-            <p onClick={() => {navg(`/articles/${article.article_id}/comments`)}}>View Comments</p>
+            <Link to={`/articles/${article_id}/comments`}>View Comments</Link>
         </div>
     )
 }

@@ -1,8 +1,8 @@
 import React from "react"
-import { useNavigate } from 'react-router'
+
 
 export function CommentCard ({ comment }){
-    const navg = useNavigate()
+
     return (
         <div className="Card">
             <br/>

@@ -24,7 +24,7 @@ export function getArticles(article_id) {
                 return response.data.article
             })
             .catch((error) => {
-                console.log(error)
+                throw error
             })
     } else {
         return axios.get("https://joe-beaumont-nc-news.onrender.com/api/articles")
@@ -32,7 +32,7 @@ export function getArticles(article_id) {
                 return response.data.articles
             })
             .catch((error) => {
-                console.log(error)
+                throw error
             })
     }
 }
@@ -43,18 +43,14 @@ export function getCommentsById(article_id) {
             return response.data.comments
         })
         .catch((error) => {
-            console.log(error)
+            throw error
         })
 }
 
 
 export function incrementVotesOnArticle(inc_votes, article_id) {
     return axios.patch(`https://joe-beaumont-nc-news.onrender.com/api/articles/${article_id}`, inc_votes)
-
-    .then((response) => {
-        console.log(response)
-    })
     .catch((error) => {
-        console.log(error)
+        throw error
     })
 }
