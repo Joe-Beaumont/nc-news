@@ -1,9 +1,9 @@
 import './App.css'
-import Header from './Components/Header'
-import { Route, Routes } from 'react-router'
 import React from 'react'
-import { AllArticles, ArticleById } from './Components/Articles'
-import { CommentsByArticleId } from './Components/Comments'
+import Header from './Components/Header'
+import Nav from './Components/Nav'
+import Content from './Components/Content'
+
 
 
 function App() {
@@ -11,13 +11,8 @@ function App() {
   return (
     <div>
       <Header />
-      <p>Welcome to NC-News</p>
-      {<Routes>
-        {/* <Route path="/" element ={<Home />}/> */}
-        <Route path="/articles" element={<AllArticles />} />
-        <Route path="/articles/:article_id" element={<ArticleById />} />
-        <Route path="/articles/:article_id/comments" element={<CommentsByArticleId />} />
-      </Routes>}
+      <Nav />
+      <Content />
     </div>
   )
 }

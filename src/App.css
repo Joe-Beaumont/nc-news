@@ -1,22 +1,29 @@
 #root {
-  min-width: 300px;
   max-width: 1280px;
-  min-height: 300px;
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
-  background-color: blanchedalmond;
 }
 
-/* media queries */
 
-@media (max-width: 480) {
-/* Mobiles */
+.content {
+  display: grid;
+  grid-template-columns: 100%;
+  grid-template-rows: min-content auto auto;
+}
+
 .Card {
+  flex: 1;
+  min-width: 250px; /* Each card takes at least 250px width */
+  max-width: 1080px;
+  background-color: #f4f4f4;
+  padding: 20px;
+  border-radius: 5px;
   display: list-item;
   border: 0cap;
   background-color: whitesmoke;
-  box-shadow: 6px 8px 0 rgba(0,0,0,0.2);
+  color: black;
+  box-shadow: 6px 8px 0 rgba(0, 0, 0, 0.2);
   border: 1px solid black;
   border-radius: 5px;
   padding: 5px 5px 5px 5px;
@@ -24,71 +31,44 @@
 }
 
 .List {
+  max-width: 1280px;
+  display: grid;
   list-style-type: none;
   padding-left: 0px;
   word-wrap: break-word;
-  display: block;
-  }
 }
 
-@media (481px <= width <= 768px){
-/* Tablets */
+.img {
+  max-width: 1080px;
+}
+
+
+@media only screen and (min-width: 600px) {
+
+  .content {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
 .Card {
+  flex: 1;
+  min-width: 250px;
+  max-width: 600px;
+  background-color: #f4f4f4;
+  padding: 20px;
+  border-radius: 5px;
   display: list-item;
   border: 0cap;
   background-color: whitesmoke;
-  box-shadow: 6px 8px 0 rgba(0,0,0,0.2);
+  color: black;
+  box-shadow: 6px 8px 0 rgba(0, 0, 0, 0.2);
   border: 1px solid black;
   border-radius: 5px;
   padding: 5px 5px 5px 5px;
   text-align: center;
 }
 
-.List {
-  list-style-type: none;
-  padding-left: 0px;
-  word-wrap: break-word;
-  display: block;
-  }
-}
-
-
-@media (769px <= width <= 1024px){
-/* Laptops */
-.Card {
-  display: list-item;
-  border: 0cap;
-  background-color: whitesmoke;
-  box-shadow: 6px 8px 0 rgba(0,0,0,0.2);
-  border: 1px solid black;
-  border-radius: 5px;
-  padding: 5px 5px 5px 5px;
-  text-align: center;
-}
-
-.List {
-  list-style-type: none;
-  padding-left: 0px;
-  word-wrap: break-word;
-  display: block;
+.img {
+  max-width: 400px;
 }
 }
-
-/* All else (Desktops and larger)*/
-  .Card {
-    display: list-item;
-    border: 0cap;
-    background-color: whitesmoke;
-    box-shadow: 6px 8px 0 rgba(0,0,0,0.2);
-    border: 1px solid black;
-    border-radius: 5px;
-    padding: 5px 5px 5px 5px;
-    text-align: center;
-  }
-
-  .List {
-    display: grid;
-    list-style-type: none;
-    padding-left: 0px;
-    word-wrap: break-word;
-  }
