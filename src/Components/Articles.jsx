@@ -1,16 +1,32 @@
 import { useState, useEffect } from "react";
-import { getArticles } from "../Api";
+import { getArticles, getArticlesQueries } from "../Api";
 import React from 'react'
 import { ArticleCard, SingleArticleCard } from "../Cards/ArticleCard";
-import { useParams } from "react-router"
+import { useParams, useSearchParams } from "react-router"
 import { ErrorComponent } from "./Error";
 
-export function AllArticles() {
+export function GetArticles() {
     const [articles, setArticles] = useState([]);
     const [isLoading, setIsLoading] = useState(true)
     const [error, setError] = useState(null)
+    const [searchParams] = useSearchParams()
+
+    const filterQuery = searchParams.get("filter")
+    const byQuery = searchParams.get("by")
 
     useEffect(() => {
+        if (filterQuery) {
+            getArticlesQueries(filterQuery, byQuery)
+            .then((articles) => {
+                setArticles(articles)
+            })
+            .catch((error) => {
+                setError(error)
+            })
+            .finally(() => {
+                setIsLoading(false)
+            })
+        } else {
         getArticles()
             .then((allArticles) => {
                 setArticles(allArticles);
@@ -21,7 +37,8 @@ export function AllArticles() {
             .finally(() => {
                 setIsLoading(false)
             })
-    }, [])
+        }
+    }, [filterQuery, byQuery])
 
     if (isLoading) {
         return <p>Loading...</p>
