@@ -1,5 +1,5 @@
-import axios, { Axios } from "axios";
-import { useEffect, useState } from "react";
+import axios from "axios";
+
 
 
 // Custom Hook
@@ -24,7 +24,7 @@ export function getArticles(article_id) {
                 return response.data.article
             })
             .catch((error) => {
-                throw error
+                throw new Error ("Error: We could not find that article")
             })
     } else {
         return axios.get("https://joe-beaumont-nc-news.onrender.com/api/articles")
@@ -32,7 +32,7 @@ export function getArticles(article_id) {
                 return response.data.articles
             })
             .catch((error) => {
-                throw error
+                throw new Error ("Error: We could not find any articles")
             })
     }
 }
@@ -43,7 +43,7 @@ export function getCommentsById(article_id) {
             return response.data.comments
         })
         .catch((error) => {
-            throw error
+            throw new Error ("Error: We could not find any comments")
         })
 }
 
@@ -51,19 +51,30 @@ export function getCommentsById(article_id) {
 export function incrementVotesOnArticle(inc_votes, article_id) {
     return axios.patch(`https://joe-beaumont-nc-news.onrender.com/api/articles/${article_id}`, inc_votes)
     .catch((error) => {
-        throw error
+        throw new Error ("Error: Vote unsuccessful")
     })
 }
 
 export function postNewComment(request){
     const article_id = request.params
-    console.log(request.body)
     return axios.post(`https://joe-beaumont-nc-news.onrender.com/api/articles/${article_id}/comments`, request.body)
     .then((response) => {
         console.log(response)
     })
     .catch((error) => {
         console.log(error)
-        throw error
+        throw new Error ("Error: Comment could not be posted")
+    })
+}
+
+export function deleteCommentAPI(comment_id){
+    console.log(comment_id)
+    return axios.delete(`https://joe-beaumont-nc-news.onrender.com/api/comments/${comment_id}`)
+    .then((response) => {
+        console.log(response)
+    })
+    .catch((error) => {
+        console.log(error)
+        throw new Error ("Error: Comment could not be deleted")
     })
 }
