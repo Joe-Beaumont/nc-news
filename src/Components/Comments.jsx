@@ -1,8 +1,8 @@
-import { getCommentsById, postNewComment } from "../Api"
+import { deleteCommentAPI, getCommentsById, postNewComment } from "../Api"
 import { useParams } from "react-router"
 import React, { useContext } from "react"
 import { useState, useEffect } from "react";
-import { CommentCard } from "../Cards/CommentCard";
+import { CommentCard, UserCommentCard } from "../Cards/CommentCard";
 import { ErrorComponent } from "./Error";
 import { CurrentUser } from "../Contexts/User";
 
@@ -11,6 +11,8 @@ export function CommentsByArticleId() {
     const [isLoading, setIsLoading] = useState(true)
     const [error, setError] = useState(null)
     const { article_id } = useParams()
+    const { user } = useContext(CurrentUser)
+
 
     useEffect(() => {
         getCommentsById(article_id)
@@ -23,7 +25,7 @@ export function CommentsByArticleId() {
             .finally(() => {
                 setIsLoading(false)
             })
-    }, [])
+    }, [comments])
 
     if (isLoading) {
         return <p>Loading...</p>
@@ -36,14 +38,24 @@ export function CommentsByArticleId() {
     return (
         <ul className="List">
             {comments.map((comment) => {
-                return (
-                    <li key={comment.comment_id}>
-                        <div>
-                            <CommentCard comment={comment} />
-                            <br />
-                        </div>
-                    </li>
-                )
+                if (comment.author === user) 
+                    return (
+                        <li key={comment.comment_id}>
+                            <div>
+                                <UserCommentCard comment={comment} />
+                                <br />
+                            </div>
+                        </li>
+                    )
+                    return (
+                        <li key={comment.comment_id}>
+                            <div>
+                                <CommentCard comment={comment} />
+                                <br />
+                            </div>
+                        </li>
+                    )
+                
             })}
         </ul>
     )
@@ -62,23 +74,24 @@ export function PostComment() {
         event.preventDefault()
         setIsLoading(true)
         postNewComment(request)
-            .then(() =>{
-                setNewComment("")})
+            .then(() => {
+                setNewComment("")
+            })
             .catch((error) => {
                 setError(error)
             })
             .finally(() => {
                 setIsLoading(false)
             })
-        }
+    }
 
-        if (isLoading) {
-            return <p>Loading...</p>
-        }
+    if (isLoading) {
+        return <p>Loading...</p>
+    }
 
-        if (error) {
-            return <ErrorComponent message={error.message} />;
-        }
+    if (error) {
+        return <ErrorComponent message={error.message} />;
+    }
 
     return (
         <form onSubmit={postComment}>
@@ -90,5 +103,44 @@ export function PostComment() {
             </label>
             <button type="submit">Submit</button>
         </form>
+    )
+}
+
+export function DeleteComment({comment_id}) {
+    const [isLoading, setIsLoading] = useState(false)
+    const [error, setError] = useState(null)
+    const [comments, setComments] = useState([])
+
+    function handleDeletion(comment_id){
+            setIsLoading(true)
+            deleteCommentAPI(comment_id)
+                .then(() => {
+                    console.log("deleted")
+                    setComments((previousComments) => {
+                        previousComments.filter((comment) => comment.comment_id !== comment_id)
+                    })
+            })
+            .catch((error) => {
+                setError(error)
+            })
+            .finally(() => {
+                setIsLoading(false)
+            })
+}
+
+    if (isLoading) {
+        return <p>Loading...</p>
+    }
+
+    if (error) {
+        return <ErrorComponent message={error.message} />;
+    }
+
+    return (
+        <div>
+            <button  onClick={() => handleDeletion(comment_id)}>
+                DeleteComment
+            </button>
+        </div>
     )
 }
