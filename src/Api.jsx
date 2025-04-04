@@ -68,7 +68,6 @@ export function postNewComment(request){
 }
 
 export function deleteCommentAPI(comment_id){
-    console.log(comment_id)
     return axios.delete(`https://joe-beaumont-nc-news.onrender.com/api/comments/${comment_id}`)
     .then((response) => {
         console.log(response)
@@ -76,5 +75,28 @@ export function deleteCommentAPI(comment_id){
     .catch((error) => {
         console.log(error)
         throw new Error ("Error: Comment could not be deleted")
+    })
+}
+
+export function getTopics(){
+    return axios.get(`https://joe-beaumont-nc-news.onrender.com/api/topics`)
+    .then((response) => {
+        return response.data.topics
+    })
+    .catch((error) => {
+        console.log(error)
+        throw new Error ("Error: No topics found")
+    })
+}
+
+export function getArticlesQueries(filter, by){
+ 
+    return axios.get(`https://joe-beaumont-nc-news.onrender.com/api/articles?filter=${filter}&by=${by}`)
+    .then((response) => {
+        return response.data.articles
+    })
+    .catch((error) => {
+        console.log(error)
+        throw new Error ("Error: No topics found")
     })
 }
