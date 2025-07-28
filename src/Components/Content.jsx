@@ -10,7 +10,7 @@ import { ErrorComponent } from './Error'
 
 export default function Content() {
     return (
-        <div className='content'>
+        <div className='List'>
             <Routes>
                 <Route path="/" element={<Home />} />
                 <Route path="/topics" element={<AllTopics />} />

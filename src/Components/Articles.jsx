@@ -1,45 +1,68 @@
 import { useState, useEffect } from "react";
-import { getArticles, getArticlesQueries } from "../Api";
+import { ArticleQueries, getArticles } from "../Api";
 import React from 'react'
 import { ArticleCard, SingleArticleCard } from "../Cards/ArticleCard";
 import { useParams, useSearchParams } from "react-router"
 import { ErrorComponent } from "./Error";
+import { ButtonGroup, Dropdown } from "react-bootstrap";
+
 
 export function GetArticles() {
     const [articles, setArticles] = useState([]);
     const [isLoading, setIsLoading] = useState(true)
     const [error, setError] = useState(null)
-    const [searchParams] = useSearchParams()
+    const [sortBy, setSortBy] = useState("date")
+    const [order, setOrder] = useState("desc")
+    const [searchParams, setSearchParams] = useSearchParams()
 
-    const filterQuery = searchParams.get("filter")
-    const byQuery = searchParams.get("by")
+
+    function handleSortChange(selectedSort) {
+        setSortBy(selectedSort)
+        searchParams.set("sort", selectedSort)
+        setSearchParams(searchParams)
+    }
+    function handleOrderChange(selectedOrder) {
+        setOrder(selectedOrder)
+        searchParams.set("order", selectedOrder)
+        setSearchParams(searchParams)
+    }
+
 
     useEffect(() => {
-        if (filterQuery) {
-            getArticlesQueries(filterQuery, byQuery)
-            .then((articles) => {
-                setArticles(articles)
-            })
-            .catch((error) => {
-                setError(error)
-            })
-            .finally(() => {
-                setIsLoading(false)
-            })
+        const params = {
+            filter: searchParams.get("filter"),
+            by: searchParams.get("by"),
+            sort: searchParams.get("sort"),
+            order: searchParams.get("order")
+        };
+    
+        setIsLoading(true)
+    
+        if (params.filter || params.sort || params.order) {
+            ArticleQueries(params)
+                .then((articles) => {
+                    setArticles(articles)
+                })
+                .catch((error) => {
+                    setError(error)
+                })
+                .finally(() => {
+                    setIsLoading(false)
+                })
         } else {
-        getArticles()
-            .then((allArticles) => {
-                setArticles(allArticles);
-            })
-            .catch((error) => {
-                setError(error)
-            })
-            .finally(() => {
-                setIsLoading(false)
-            })
+            getArticles()
+                .then((allArticles) => {
+                    setArticles(allArticles);
+                })
+                .catch((error) => {
+                    setError(error)
+                })
+                .finally(() => {
+                    setIsLoading(false)
+                })
         }
-    }, [filterQuery, byQuery])
-
+    }, [searchParams]); 
+    
     if (isLoading) {
         return <p>Loading...</p>
     }
@@ -49,19 +72,43 @@ export function GetArticles() {
     }
 
     return (
-        <ul className="List">
-            {articles.map((article) => {
-                return (
+        <div>
+            <div  style={{ display: 'flex', justifyContent: "center", gap: '1rem', marginBottom: '1rem'}}>
+
+                <Dropdown as={ButtonGroup} style={{ marginRight: '1rem' }}>
+                    <Dropdown.Toggle variant="success" id="Sort">
+                        Sort by
+                    </Dropdown.Toggle>
+                    <Dropdown.Menu>
+                        <Dropdown.Item onClick={() => handleSortChange("created_at")}>Date</Dropdown.Item>
+                        <Dropdown.Item onClick={() => handleSortChange("comment_count")}>Comment Count</Dropdown.Item>
+                        <Dropdown.Item onClick={() => handleSortChange("votes")}>Votes</Dropdown.Item>
+                    </Dropdown.Menu>
+                </Dropdown>
+
+                <Dropdown as={ButtonGroup} style={{ marginRight: '1rem' }}>
+                    <Dropdown.Toggle variant="success" id="Order">
+                        Desc
+                    </Dropdown.Toggle>
+                    <Dropdown.Menu>
+                        <Dropdown.Item onClick={() => handleOrderChange("asc")}>Asc</Dropdown.Item>
+                        <Dropdown.Item onClick={() => handleOrderChange("desc")}>Desc</Dropdown.Item>
+                    </Dropdown.Menu>
+                </Dropdown>
+            </div>
+            <br />
+            <ul className="List">
+                {articles.map((article) => (
                     <li key={article.article_id}>
                         <div>
                             <ArticleCard article={article} />
                             <br />
                         </div>
                     </li>
-                )
-            })}
-        </ul>
-    )
+                ))}
+            </ul>
+        </div>
+    );
 }
 
 export function ArticleById() {
