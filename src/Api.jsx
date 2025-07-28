@@ -108,6 +108,6 @@ export function ArticleQueries({ filter, by, sort, order }) {
         })
         .catch((error) => {
             console.log(error)
-            throw new Error("Error: No topics found")
+            throw new Error("Error: No articles found")
         })
 }
