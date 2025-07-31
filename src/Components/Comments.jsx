@@ -36,26 +36,28 @@ export function CommentsByArticleId() {
     }
 
     return (
-        <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {comments.map((comment) => {
-                if (comment.author === user) 
-                    return (
-                        <li key={comment.comment_id}>
-                            <div>
-                                <UserCommentCard comment={comment} />
-                            </div>
-                        </li>
-                    )
-                    return (
-                        <li key={comment.comment_id}>
-                            <div>
-                                <CommentCard comment={comment} />
-                            </div>
-                        </li>
-                    )
-                
-            })}
-        </ul>
+        <div className="flex justify-center">
+            <ul className="grid grid-cols-1 gap-6">
+                {comments.map((comment) => {
+                    if (comment.author === user) 
+                        return (
+                            <li key={comment.comment_id}>
+                                <div>
+                                    <UserCommentCard comment={comment} />
+                                </div>
+                            </li>
+                        )
+                        return (
+                            <li key={comment.comment_id}>
+                                <div>
+                                    <CommentCard comment={comment} />
+                                </div>
+                            </li>
+                        )
+                    
+                })}
+            </ul>
+        </div>
     )
 }
 
@@ -92,14 +94,14 @@ export function PostComment() {
     }
 
     return (
-        <form onSubmit={postComment}>
-            <label>
+        <form className="font-bold flex justify-center" onSubmit={postComment}>
+            <label className="font-bold pr-4">
                 Post Comment
-                <input value={newComment}
+                <input className="border border-black p-1 rounded" value={newComment}
                     onChange={(event) => setNewComment(event.target.value)}
                 />
             </label>
-            <button type="submit">Submit</button>
+            <button className="font-bold border border-black p-1 rounded" type="submit">Submit</button>
         </form>
     )
 }
@@ -135,8 +137,8 @@ export function DeleteComment({comment_id}) {
     }
 
     return (
-        <div>
-            <button  onClick={() => handleDeletion(comment_id)}>
+        <div className="font-bold flex justify-center">
+            <button className="font-bold border border-black p-1 rounded" onClick={() => handleDeletion(comment_id)}>
                 DeleteComment
             </button>
         </div>

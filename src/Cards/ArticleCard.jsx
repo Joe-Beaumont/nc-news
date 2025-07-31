@@ -15,15 +15,17 @@ export function ArticleCard({ article }) {
                 alt={title}
                 className="mx-auto mb-4 max-2-[600px] rounded"
             />
-            <h2 className="text-2xl font-semibold mb-1">{title}</h2>
-            <p className="text-sm text-gray-600 mb-1">Topic: {topic}</p>
-            <p className="text-sm text-gray-600 mb-1">Author: {author}</p>
-            <p className="text-sm text-gray-600 mb-3">Created At: {created_at}</p>
+            <div>
+            <h2 className="flex justify-center text-2xl font-semibold mb-1">{title}</h2>
+            <p className="flex justify-center text-sm text-gray-600 mb-1">Topic: {topic}</p>
+            <p className="flex justify-center text-sm text-gray-600 mb-1">Author: {author}</p>
+            <p className="flex justify-center text-sm text-gray-600 mb-3">Created At: {created_at}</p>
             <Votes article_id={article_id}/>
             <Link
                 to={`/articles/${article_id}`}
-                className="inline-block mt-4 text-blue-600 hover:underline"
+                className="flex justify-center text-blue-600 hover:underline pt-4"
             >Read Article in Full</Link>
+            </div>
         </div>
     )
 }
@@ -39,15 +41,15 @@ export function SingleArticleCard({ article }) {
                 alt={title}
                 className="mx-auto mb-4 max-2-[600px] rounded"
             />
-            <h2 className="text-2xl font-semibold mb-1">{title}</h2>
-            <p className="text-sm text-gray-600 mb-1">Topic: {topic}</p>
-            <p className="text-sm text-gray-600 mb-1">Author: {author}</p>
+            <h2 className="flex justify-center text-2xl font-semibold mb-1">{title}</h2>
+            <p className="flex justify-center text-sm text-gray-600 mb-1">Topic: {topic}</p>
+            <p className="flex justify-center text-sm text-gray-600 mb-1">Author: {author}</p>
             <p>{body}</p>
-            <p className="text-sm text-gray-600 mb-3">Created At: {created_at}</p>
+            <p className="flex justify-center text-sm text-gray-600 mb-3">Created At: {created_at}</p>
             <Votes article_id={article_id}/>
             <Link
                 to={`/articles/${article_id}/comments`}
-                className="inline-block mt-4 text-blue-600 hover:underline"
+                className="flex justify-center  text-blue-600 hover:underline pt-4"
             >View Comments</Link>
             <PostComment />
         </div>

@@ -1,15 +1,14 @@
-import './App.css'
+import './index.css'
 import React from 'react'
 import Header from './Components/Header'
-import Nav from './Components/Nav'
 import Content from './Components/Content'
-
+import Nav from './Components/Nav'
 
 
 function App() {
 
   return (
-    <div>
+    <div className='min-h-full bg-gray-100'>
       <Header />
       <Nav />
       <Content />

@@ -3,11 +3,10 @@ import React from 'react'
 
 function Nav() {
     return (
-        <nav className='nav'>
+        <nav className='text-4xl underline p-8 border border-black'>
             <Link to="/">Home / </Link>
             <Link to="/Articles">Articles / </Link>
-            <Link to="/Topics">Topics / </Link>
-            <Link to="/Users">Users</Link>
+            <Link to="/Topics">Topics</Link>
         </nav>
     )
 }

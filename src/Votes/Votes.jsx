@@ -43,9 +43,15 @@ export function Votes({ article_id }) {
 
     return (
         <div>
-            <p>Votes: {votesCount}</p>
-            <button onClick={() => handleVote(article_id, 1)}>Upvote</button>
-            <button onClick={() => handleVote(article_id, -1)}>Downvote</button>
+            <p className="font-bold flex justify-center">Votes: {votesCount}</p>
+            <div className="flex items-center justify-center gap-4 mt-2">
+            <button
+                className="font-bold border border-black p-1 rounded"
+                onClick={() => handleVote(article_id, 1)}>Upvote</button>
+            <button
+                className="font-bold border border-black p-1 rounded"
+                onClick={() => handleVote(article_id, -1)}>Downvote</button>
+            </div>
         </div>
     )
 

@@ -11,24 +11,18 @@ export function GetArticles() {
     const [error, setError] = useState(null)
     const [searchParams] = useSearchParams()
 
-    const filterQuery = searchParams.get("filter")
-    const byQuery = searchParams.get("by")
 
     useEffect(() => {
-        if (filterQuery) {
-            getArticlesQueries(filterQuery, byQuery)
-            .then((articles) => {
-                setArticles(articles)
-            })
-            .catch((error) => {
-                setError(error)
-            })
-            .finally(() => {
-                setIsLoading(false)
-            })
-        } else {
         getArticles()
             .then((allArticles) => {
+                let featuredArticles = [];
+                let max = allArticles[0].votes;
+                let first = 0;
+                let second = 0;
+                let third = 0;
+                for(let i = 0; i <= allArticles.length; i++){
+
+                }
                 setArticles(allArticles);
             })
             .catch((error) => {
@@ -37,8 +31,7 @@ export function GetArticles() {
             .finally(() => {
                 setIsLoading(false)
             })
-        }
-    }, [filterQuery, byQuery])
+        },[])
 
     if (isLoading) {
         return <p>Loading...</p>
@@ -105,48 +98,4 @@ export function ArticleById() {
         </ul>
     )
 
-}
-
-export function FeaturedArticles() {
-    const [articles, setArticles] = useState([]);
-    const [isLoading, setIsLoading] = useState(true)
-    const [error, setError] = useState(null)
-    const [searchParams] = useSearchParams()
-
-
-    useEffect(() => {
-        getArticles()
-            .then((allArticles) => {
-                const top3 = allArticles.sort((a, b) => b.votes - a.votes).slice(0, 3);
-                setArticles(top3);
-            })
-            .catch((error) => {
-                setError(error)
-            })
-            .finally(() => {
-                setIsLoading(false)
-            })
-        },[])
-
-    if (isLoading) {
-        return <p>Loading...</p>
-    }
-
-    if (error) {
-        return <ErrorComponent message={error.message} />;
-    }
-
-    return (
-        <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {articles.map((article) => {
-                return (
-                    <li key={article.article_id}>
-                        <div>
-                            <ArticleCard article={article} />
-                        </div>
-                    </li>
-                )
-            })}
-        </ul>
-    )
 }
