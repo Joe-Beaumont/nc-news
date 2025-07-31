@@ -29,13 +29,12 @@ export function AllTopics() {
         return <ErrorComponent message={error.message} />;
     }
     return (
-        <ul className="List">
+        <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {topics.map((topic) => {
                 return (
                     <li key={topic.slug}>
                         <div>
                             <TopicCard topic={topic} />
-                            <br />
                         </div>
                     </li>
                 )

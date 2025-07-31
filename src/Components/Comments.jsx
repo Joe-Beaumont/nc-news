@@ -36,14 +36,13 @@ export function CommentsByArticleId() {
     }
 
     return (
-        <ul className="List">
+        <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {comments.map((comment) => {
                 if (comment.author === user) 
                     return (
                         <li key={comment.comment_id}>
                             <div>
                                 <UserCommentCard comment={comment} />
-                                <br />
                             </div>
                         </li>
                     )
@@ -51,7 +50,6 @@ export function CommentsByArticleId() {
                         <li key={comment.comment_id}>
                             <div>
                                 <CommentCard comment={comment} />
-                                <br />
                             </div>
                         </li>
                     )

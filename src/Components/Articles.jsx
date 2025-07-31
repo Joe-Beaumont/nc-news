@@ -49,13 +49,12 @@ export function GetArticles() {
     }
 
     return (
-        <ul className="List">
+        <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {articles.map((article) => {
                 return (
                     <li key={article.article_id}>
                         <div>
                             <ArticleCard article={article} />
-                            <br />
                         </div>
                     </li>
                 )
@@ -93,13 +92,12 @@ export function ArticleById() {
     }
 
     return (
-        <ul className="List">
+        <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {article.map((article) => {
                 return (
                     <li key={article.article_id}>
                         <div>
                             <SingleArticleCard article={article} />
-                            <br />
                         </div>
                     </li>
                 )

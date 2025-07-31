@@ -9,16 +9,21 @@ export function ArticleCard({ article }) {
     const { article_img_url, article_id, title, topic, author, created_at} = article
 
     return (
-        <div className="Card">
-            <br/>
-            <img src= {article_img_url} alt={title} className="img"></img>
-            <h2>{title}</h2>
-            <p>Topic: {topic}</p>
-            <p>Author: {author}</p>
-            <p>Created At: {created_at}</p>
+        <div className="flex-1 min-w-[250px] max-w-[1080px] bg-white text-black p-5 border border-black rounded">
+            <img
+                src= {article_img_url}
+                alt={title}
+                className="mx-auto mb-4 max-2-[600px] rounded"
+            />
+            <h2 className="text-2xl font-semibold mb-1">{title}</h2>
+            <p className="text-sm text-gray-600 mb-1">Topic: {topic}</p>
+            <p className="text-sm text-gray-600 mb-1">Author: {author}</p>
+            <p className="text-sm text-gray-600 mb-3">Created At: {created_at}</p>
             <Votes article_id={article_id}/>
-            <Link to={`/articles/${article_id}`}>Read Article in Full</Link>
-            <br/>
+            <Link
+                to={`/articles/${article_id}`}
+                className="inline-block mt-4 text-blue-600 hover:underline"
+            >Read Article in Full</Link>
         </div>
     )
 }
@@ -28,16 +33,22 @@ export function SingleArticleCard({ article }) {
     const { article_img_url, article_id, body, title, topic, author, created_at} = article
 
     return (
-        <div className="Card">
-            <br/>
-            <img src= {article_img_url} alt={title} className="img"></img>
-            <h2>{title}</h2>
-            <p>Topic: {topic}</p>
-            <p>Author: {author}</p>
+        <div className="flex-1 min-w-[250px] max-w-[1080px] bg-white text-black p-5 border border-black rounded">
+            <img
+                src= {article_img_url}
+                alt={title}
+                className="mx-auto mb-4 max-2-[600px] rounded"
+            />
+            <h2 className="text-2xl font-semibold mb-1">{title}</h2>
+            <p className="text-sm text-gray-600 mb-1">Topic: {topic}</p>
+            <p className="text-sm text-gray-600 mb-1">Author: {author}</p>
             <p>{body}</p>
-            <p>Created At: {created_at}</p>
+            <p className="text-sm text-gray-600 mb-3">Created At: {created_at}</p>
             <Votes article_id={article_id}/>
-            <Link to={`/articles/${article_id}/comments`}>View Comments</Link>
+            <Link
+                to={`/articles/${article_id}/comments`}
+                className="inline-block mt-4 text-blue-600 hover:underline"
+            >View Comments</Link>
             <PostComment />
         </div>
     )
