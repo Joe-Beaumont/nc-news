@@ -55,6 +55,13 @@ export function incrementVotesOnArticle(inc_votes, article_id) {
     })
 }
 
+export function incrementVotesOnComment(inc_votes, comment_id) {
+    return axios.patch(`https://joe-beaumont-nc-news.onrender.com/api/articles/${article_id}/comments/${comment_id}`, inc_votes)
+    .catch((error) => {
+        throw new Error ("Error: Vote unsuccessful")
+    })
+}
+
 export function postNewComment(request){
     const article_id = request.params
     return axios.post(`https://joe-beaumont-nc-news.onrender.com/api/articles/${article_id}/comments`, request.body)

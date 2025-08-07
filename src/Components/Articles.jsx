@@ -49,16 +49,14 @@ export function GetArticles() {
     }
 
     return (
-        <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {articles.map((article) => {
-                return (
-                    <li key={article.article_id}>
-                        <div>
-                            <ArticleCard article={article} />
-                        </div>
-                    </li>
-                )
-            })}
+        <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 auto-rows-fr">
+            {articles.map((article) => (
+                <div key={article.article_id}>
+                    <div>
+                        <ArticleCard article={article} />
+                    </div>
+                </div>
+            ))}
         </ul>
     )
 }
@@ -92,7 +90,7 @@ export function ArticleById() {
     }
 
     return (
-        <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <ul className="flex justify-center p-6">
             {article.map((article) => {
                 return (
                     <li key={article.article_id}>
@@ -119,6 +117,7 @@ export function FeaturedArticles() {
             .then((allArticles) => {
                 const top3 = allArticles.sort((a, b) => b.votes - a.votes).slice(0, 3);
                 setArticles(top3);
+                console.log(top3)
             })
             .catch((error) => {
                 setError(error)
@@ -137,7 +136,7 @@ export function FeaturedArticles() {
     }
 
     return (
-        <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <ul className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {articles.map((article) => {
                 return (
                     <li key={article.article_id}>

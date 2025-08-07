@@ -101,7 +101,7 @@ export function PostComment() {
                     onChange={(event) => setNewComment(event.target.value)}
                 />
             </label>
-            <button className="font-bold border border-black p-1 rounded" type="submit">Submit</button>
+            <button className="font-bold border border-black p-1 rounded cursor-pointer" type="submit">Submit</button>
         </form>
     )
 }
@@ -138,7 +138,7 @@ export function DeleteComment({comment_id}) {
 
     return (
         <div className="font-bold flex justify-center">
-            <button className="font-bold border border-black p-1 rounded" onClick={() => handleDeletion(comment_id)}>
+            <button className="font-bold border border-black p-1 rounded cursor-pointer" onClick={() => handleDeletion(comment_id)}>
                 DeleteComment
             </button>
         </div>
