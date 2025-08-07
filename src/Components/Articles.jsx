@@ -1,68 +1,45 @@
 import { useState, useEffect } from "react";
-import { ArticleQueries, getArticles } from "../Api";
+import { getArticles, getArticlesQueries } from "../Api";
 import React from 'react'
 import { ArticleCard, SingleArticleCard } from "../Cards/ArticleCard";
 import { useParams, useSearchParams } from "react-router"
 import { ErrorComponent } from "./Error";
-import { ButtonGroup, Dropdown } from "react-bootstrap";
-
 
 export function GetArticles() {
     const [articles, setArticles] = useState([]);
     const [isLoading, setIsLoading] = useState(true)
     const [error, setError] = useState(null)
-    const [sortBy, setSortBy] = useState("date")
-    const [order, setOrder] = useState("desc")
-    const [searchParams, setSearchParams] = useSearchParams()
+    const [searchParams] = useSearchParams()
 
-
-    function handleSortChange(selectedSort) {
-        setSortBy(selectedSort)
-        searchParams.set("sort", selectedSort)
-        setSearchParams(searchParams)
-    }
-    function handleOrderChange(selectedOrder) {
-        setOrder(selectedOrder)
-        searchParams.set("order", selectedOrder)
-        setSearchParams(searchParams)
-    }
-
+    const filterQuery = searchParams.get("filter")
+    const byQuery = searchParams.get("by")
 
     useEffect(() => {
-        const params = {
-            filter: searchParams.get("filter"),
-            by: searchParams.get("by"),
-            sort: searchParams.get("sort"),
-            order: searchParams.get("order")
-        };
-    
-        setIsLoading(true)
-    
-        if (params.filter || params.sort || params.order) {
-            ArticleQueries(params)
-                .then((articles) => {
-                    setArticles(articles)
-                })
-                .catch((error) => {
-                    setError(error)
-                })
-                .finally(() => {
-                    setIsLoading(false)
-                })
+        if (filterQuery) {
+            getArticlesQueries(filterQuery, byQuery)
+            .then((articles) => {
+                setArticles(articles)
+            })
+            .catch((error) => {
+                setError(error)
+            })
+            .finally(() => {
+                setIsLoading(false)
+            })
         } else {
-            getArticles()
-                .then((allArticles) => {
-                    setArticles(allArticles);
-                })
-                .catch((error) => {
-                    setError(error)
-                })
-                .finally(() => {
-                    setIsLoading(false)
-                })
+        getArticles()
+            .then((allArticles) => {
+                setArticles(allArticles);
+            })
+            .catch((error) => {
+                setError(error)
+            })
+            .finally(() => {
+                setIsLoading(false)
+            })
         }
-    }, [searchParams]); 
-    
+    }, [filterQuery, byQuery])
+
     if (isLoading) {
         return <p>Loading...</p>
     }
@@ -140,7 +117,6 @@ export function FeaturedArticles() {
             .then((allArticles) => {
                 const top3 = allArticles.sort((a, b) => b.votes - a.votes).slice(0, 3);
                 setArticles(top3);
-                console.log(top3)
             })
             .catch((error) => {
                 setError(error)
