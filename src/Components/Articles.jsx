@@ -11,6 +11,7 @@ export function GetArticles() {
     const [error, setError] = useState(null)
     const [searchParams] = useSearchParams()
 
+
     const filterQuery = searchParams.get("filter")
     const byQuery = searchParams.get("by")
 
@@ -107,10 +108,9 @@ export function ArticleById() {
 
 export function FeaturedArticles() {
     const [articles, setArticles] = useState([]);
-    const [isLoading, setIsLoading] = useState(true)
-    const [error, setError] = useState(null)
-    const [searchParams] = useSearchParams()
-
+    const [isLoading, setIsLoading] = useState(true);
+    const [error, setError] = useState(null);
+    const [currentIndex, setCurrentIndex] = useState(0);
 
     useEffect(() => {
         getArticles()
@@ -126,6 +126,19 @@ export function FeaturedArticles() {
             })
         },[])
 
+        
+    useEffect(() => {
+        if (articles.length === 0) return;
+
+        const interval = setInterval(() => {
+            setCurrentIndex((prevIndex) =>
+                (prevIndex + 1) % articles.length
+            );
+        }, 10000);
+
+        return () => clearInterval(interval);
+    }, [articles]);
+
     if (isLoading) {
         return <p>Loading...</p>
     }
@@ -134,17 +147,11 @@ export function FeaturedArticles() {
         return <ErrorComponent message={error.message} />;
     }
 
+    if (articles.length === 0) return <p>No featured articles found.</p>;
+
     return (
-        <ul className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {articles.map((article) => {
-                return (
-                    <li key={article.article_id}>
-                        <div>
-                            <ArticleCard article={article} />
-                        </div>
-                    </li>
-                )
-            })}
-        </ul>
-    )
+        <div className="flex justify-center">
+            <ArticleCard article={articles[currentIndex]} />
+        </div>
+    );
 }
