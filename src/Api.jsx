@@ -1,7 +1,5 @@
 import axios from "axios";
 
-
-
 // Custom Hook
 // export function useFetchAll(dataType) {
 //     const [data, setData] = useState([]);
@@ -16,10 +14,14 @@ import axios from "axios";
 //     })
 // }
 
+const isLocal = true
+const baseURL = isLocal
+? "http://localhost:9090/api/"
+: "https://joe-beaumont-nc-news.onrender.com/api/"
 
 export function getArticles(article_id) {
     if (article_id) {
-        return axios.get(`https://joe-beaumont-nc-news.onrender.com/api/articles/${article_id}`)
+        return axios.get(`${baseURL}articles/${article_id}`)
             .then((response) => {
                 return response.data.article
             })
@@ -27,7 +29,7 @@ export function getArticles(article_id) {
                 throw new Error ("Error: We could not find that article")
             })
     } else {
-        return axios.get("https://joe-beaumont-nc-news.onrender.com/api/articles")
+        return axios.get(`${baseURL}articles`)
             .then((response) => {
                 return response.data.articles
             })
@@ -37,8 +39,18 @@ export function getArticles(article_id) {
     }
 }
 
+export function getComments(comment_id) {
+    return axios.get(`${baseURL}comments/${comment_id}`)
+        .then((response) => {
+            return response.data.comment
+        })
+        .catch((error) => {
+            throw new Error ("Error: We could not find that comment")
+        })
+}
+
 export function getCommentsById(article_id) {
-    return axios.get(`https://joe-beaumont-nc-news.onrender.com/api/articles/${article_id}/comments`)
+    return axios.get(`${baseURL}articles/${article_id}/comments`)
         .then((response) => {
             return response.data.comments
         })
@@ -49,15 +61,24 @@ export function getCommentsById(article_id) {
 
 
 export function incrementVotesOnArticle(inc_votes, article_id) {
-    return axios.patch(`https://joe-beaumont-nc-news.onrender.com/api/articles/${article_id}`, inc_votes)
+    return axios.patch(`${baseURL}articles/${article_id}`, inc_votes)
     .catch((error) => {
         throw new Error ("Error: Vote unsuccessful")
     })
 }
 
+export function incrementVotesOnComments(inc_votes, comment_id) {
+    console.log("Voting on comment:", comment_id, "with", inc_votes);
+    return axios.patch(`${baseURL}comments/${comment_id}`, { inc_votes })
+        .catch((error) => {
+            console.error(error);
+            throw new Error("Error: Vote unsuccessful");
+        });
+}
+
 export function postNewComment(request){
     const article_id = request.params
-    return axios.post(`https://joe-beaumont-nc-news.onrender.com/api/articles/${article_id}/comments`, request.body)
+    return axios.post(`${baseURL}articles/${article_id}/comments`, request.body)
     .then((response) => {
         console.log(response)
     })
@@ -68,7 +89,7 @@ export function postNewComment(request){
 }
 
 export function deleteCommentAPI(comment_id){
-    return axios.delete(`https://joe-beaumont-nc-news.onrender.com/api/comments/${comment_id}`)
+    return axios.delete(`${baseURL}comments/${comment_id}`)
     .then((response) => {
         console.log(response)
     })
@@ -79,7 +100,7 @@ export function deleteCommentAPI(comment_id){
 }
 
 export function getTopics(){
-    return axios.get(`https://joe-beaumont-nc-news.onrender.com/api/topics`)
+    return axios.get(`${baseURL}topics`)
     .then((response) => {
         return response.data.topics
     })
@@ -91,7 +112,7 @@ export function getTopics(){
 
 export function getArticlesQueries(filter, by){
  
-    return axios.get(`https://joe-beaumont-nc-news.onrender.com/api/articles?filter=${filter}&by=${by}`)
+    return axios.get(`${baseURL}articles?filter=${filter}&by=${by}`)
     .then((response) => {
         return response.data.articles
     })

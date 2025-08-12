@@ -144,3 +144,31 @@ export function DeleteComment({comment_id}) {
         </div>
     )
 }
+
+
+// export function GetComments() {
+//     const [comments, setComments] = useState([]);
+//     const [isLoading, setIsLoading] = useState(true)
+//     const [error, setError] = useState(null)
+
+//     useEffect(() => {
+//         getComments()
+//             .then((allComments) => {
+//                 setComments(allComments);
+//             })
+//             .catch((error) => {
+//                 setError(error)
+//             })
+//             .finally(() => {
+//                 setIsLoading(false)
+//             })
+//     }, [comments])
+
+//     if (isLoading) {
+//         return <p>Loading...</p>
+//     }
+
+//     if (error) {
+//         return <ErrorComponent message={error.message} />;
+//     }
+// }
