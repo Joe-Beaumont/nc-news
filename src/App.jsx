@@ -8,7 +8,7 @@ import Nav from './Components/Nav'
 function App() {
 
   return (
-    <div className='min-h-full bg-gray-100 font-serif'>
+    <div className='min-h-full bg-gray-100 dark:bg-gray-600 font-serif'>
       <Header />
       <Nav />
       <Content />

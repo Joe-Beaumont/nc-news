@@ -151,7 +151,7 @@ export function FeaturedArticles() {
 
     return (
         <div className="flex justify-center">
-            <ArticleCard article={articles[currentIndex]} />
+            <SingleArticleCard article={articles[currentIndex]} />
         </div>
     );
 }
