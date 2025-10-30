@@ -113,7 +113,7 @@ npm run dev
 ---
 
 ## Folder Structure
-
+```bash
 nc-news/
 ├── backend/
 │   ├── controllers/
@@ -130,3 +130,4 @@ nc-news/
 │   ├── package.json
 │   └── ...
 └── README.md
+```
